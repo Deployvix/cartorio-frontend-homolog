@@ -1,0 +1,28 @@
+name: Quasar Rsync Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    name: Node Setup
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: npm install &&  npm install -g @quasar/cli &&  quasar build -m pwa --modern
+      - name: deploy to server
+        uses: AEnterprise/rsync-deploy@v1.0
+        env:
+          DEPLOY_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: "-e -c -r --delete"
+          SERVER_PORT: 22
+          FOLDER: "./"
+          SERVER_IP: 18.231.22.134
+          USERNAME: ubuntu
+          SERVER_DESTINATION: /home/ubuntu/Cartorio-Frontend
