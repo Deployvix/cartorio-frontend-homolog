@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.8.1",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "chart.js": "^2.9.3",
     "quasar": "^1.11.3",
     "v-money": "^0.8.1",
